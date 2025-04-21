@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리액트 컴포넌트</title>
+</head>
+<body>
+    <div id = "root"></div>
+</body>
+<script>
+    // 리엑트 컴포넌트의 구조 따라해보기
+    
+    class Component {
+        target; // 전달할 값
+        state; // 상태값
+        constructor(target){
+            this.target = target;
+            this.setUp();
+
+        }
+        setUp() {
+            // 컴포넌트의 초기 설정
+            console.log("컴포넌트 초기 세팅");
+        }
+
+        template(){
+            // 리엑트 컴포넌트 html의 내용을 반환 즉 화면에 그리는 역할을 하는 것
+            // 자바스크립트 영역을 html에 같이 작성하잖아
+            return `<div></div>`
+        } 
+        
+        render() {
+            // 컴포넌트의 즉 타겟의 요소를 렌더링
+            this.target.innerHTML = this.template();
+            // 이벤트를 등록 요소를 안만들면 이벤트를 등록할 요소의 주소를 알고 이벤트를 등록하려면 요소가 생성된 이후에 가능하기 때문에
+            this.setEvent();
+        }
+
+        setEvent() {
+            console.log('컴포넌트의 요소에 이벤트를 등록')
+        }
+
+        setState(_state) {
+            // 이전의 값은 유지하면서 다른 값을 할당할 수 있어야한다.
+            // this.setState({name : "soom"}) << 이렇게하면 부모의 값이 삭제되고 변경되기 때문에 이렇게 사용하면 안됨 !
+            // this.state = {name:"zzeen", count : 0, ..._state} === {name:"zzeen", count : 0, name:"soom" === {name : "soom", count:0} << 풀어서쓰면 이렇게
+
+            // 이전 상태의 값을 관리할 수 있는 구조 
+            this.state = {...this.state, ..._state}
+            this.render();
+            // ** 리렌더링 중요 ! 리렌더링이 안되면 컴포넌트에서 그려주는 UI는 절대로 변화할 수 없다.
+        }
+
+    }
+
+    // 가상돔
+    class VirtualDOM {
+        // 노드를 탐색하면서 어느 부분이 변화하였는지 판단해서 그려준다.
+        constructor(target) {
+            this.component = "" // 생성되는 컴포넌트들을 관리를 하고 있을거고 여기는 흉내
+            this.component = new App(target)
+        }
+        render() {
+            // 컴포넌트 렌더링
+            // 그려야되는 컴포넌트들
+            this.component.render();
+        }
+    }
+
+    // 리스트를 생성하는 컴포넌트
+    class App extends Component {
+        setUp() {
+            // 초기 세팅 상태값
+            this.state = {item : ["추가되어있는 아이템1"]}
+        }
+        template() {
+            const {item} = this.state;
+            return `
+            <ul>
+                ${item.map((i) => `<li>${i}</li>`).join("")} 
+            </ul>
+            <button>추가</button>
+            `
+        }
+        setEvent() {
+            console.log(this.target);
+            this.target.querySelector("button").addEventListener("click", () => {
+                const {item} = this.state;
+                this.setState({item : [...item, `추가된 아이템 ${item.length + 1}`]})
+            })
+        }
+    }
+    const root = new VirtualDOM(document.querySelector("#root"));
+    root.render();
+
+</script>
+</html>
