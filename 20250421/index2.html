@@ -12,14 +12,14 @@
     // 리엑트 컴포넌트의 구조 따라해보기
     
     class Component {
-        target; // 전달할 값
+        target; // 전달할 값, 실제 DOM 요소 
         state; // 상태값
         constructor(target){
-            this.target = target;
+            this.target = target; //  "생성된 객체의 target 속성에 값을 넣겠다"
             this.setUp();
 
         }
-        setUp() {
+        setUp() {   
             // 컴포넌트의 초기 설정
             console.log("컴포넌트 초기 세팅");
         }
@@ -51,20 +51,24 @@
             this.render();
             // ** 리렌더링 중요 ! 리렌더링이 안되면 컴포넌트에서 그려주는 UI는 절대로 변화할 수 없다.
         }
-
+        
     }
-
+    
     // 가상돔
-    class VirtualDOM {
+    /*
+    new VirtualDOM(#root)
+    → 내부에서 new App(#root)
+        → App의 state 설정
+        → render()로 HTML 생성 + 출력
+    */
+    class VirtualDOM { // VirtualDOM이라는 객체가 생성
         // 노드를 탐색하면서 어느 부분이 변화하였는지 판단해서 그려준다.
         constructor(target) {
-            this.component = "" // 생성되는 컴포넌트들을 관리를 하고 있을거고 여기는 흉내
-            this.component = new App(target)
+            this.component = "" // 1. 빈값 초기화
+            this.component = new App(target) // 2. 실제로 App 컴포넌트를 생성해서 저장 // 이때 전달받은 target은 <div id="root">를 의미
         }
         render() {
-            // 컴포넌트 렌더링
-            // 그려야되는 컴포넌트들
-            this.component.render();
+            this.component.render(); // 3. App 컴포넌트를 렌더링
         }
     }
 
@@ -93,6 +97,7 @@
     }
     const root = new VirtualDOM(document.querySelector("#root"));
     root.render();
+
 
 </script>
 </html>

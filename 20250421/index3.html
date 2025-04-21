@@ -14,7 +14,7 @@
 </body>
 <!-- text/babel 스크립트의 내용을 babel로 트랜스파일 하겠다. -->
 <script type = "text/babel">
-    class LoginBtn extends React.Component{
+    class LoginBtn extends React.Component{ // 내부에 state와 render()가 이미 구현되어있음
         constructor (props) {
             super(props);
             this.state = {
@@ -22,7 +22,7 @@
             }
         }
         render() {
-            let a = 0;
+            let a = 0; //let a = 0은 함수가 호출될 때마다 새로 선언됨 ( 상태로 관리 안 하면 화면에는 반영 안 됨)
             return <div>
                 <div>
                     <button onClick={()=> {this.setState(
@@ -34,8 +34,9 @@
                         // 상태관리를 잘하기 위해서는 생명주기를 이해해야한다.
                     }}>{this.state.isLogin ? "logOut" : "login"}</button>
                 </div>    
-                이건 일반 변수야 : {a} 
+                이건 상태가 아닌 일반 변수야 : {a} 
                 <button onClick={() => {a++, console.log(a)}}>증가 화면에 보이니?</button> 
+                ***얘는 콘솔에만 찍히고 화면에는 변화가 안보여 ! - 상태가 아니기 때문에 화면이 바뀌지 않아!***
             </div>
         }
     }
