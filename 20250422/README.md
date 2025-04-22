@@ -140,8 +140,39 @@ npx babel Main.jsx --out-file dist/app.js
     npx webpack
 ```
 
-### 실전 사용 흐름
+## 실전 사용 흐름
 1. 코드를 `ES6`, `JSX`, `모듈` 단위로 작성
 2. Babel이 문법을 변환
 3. Webpack이 모든 파일을 하나로 묶음(bundle.js)
 4. 브라우저는 변환된 코드를 실행한다.
+
+## 실습코드 정리
+### babel 
+#### 01 폴더
+> babelrc에서 변환 기본설정 프리셋을 설정 
+> 변환할 js 파일 생성
+> npx babel "변환시킬 경로" --out-file "변환해서 내보낼 경로"
+> dist 폴더에 변환된 파일 생성됨
+
+#### 02 폴더
+> 플러그인을 사용해 모듈이 포함된 파일 변환 실습
+
+#### 03 폴더
+> babelrc 파일에 프리셋 설정 (문법변환, 모듈 변환)
+> src 폴더에 Main.jsx 작성(react)
+> dist 폴더에 변환된 js파일 생성
+
+### webpack
+#### 01 폴더
+> webpack 설정 파일에서 패키징 환경 설정하기 (entry, output ..)
+> src 폴더의 Js 파일이 번들되어 dist폴더에 생성됨
+
+#### 02 폴더
+> webpack 설정 파일에서 패키징 환경 설정하기 (entry,output ..)
+> src 폴더의 Js 파일과 css 파일이 번들링되어 dist 폴더에 생성 
+
+#### 03 폴드
+- 바벨과 웹팩 사용
+> 작업 폴데어 babelrc와 webpack 환경 설정하기
+> src 폴더의 app.jsx, index.html, index.js가 번들되고, 변환되어 dist 파일에 생성
+> 이때 plugins으로 html 설정을 해줬기 때문에 index.html 파일도 같이 생성됨 ! 
