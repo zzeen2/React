@@ -47,3 +47,14 @@ class App extends React.Component {
 2. 폭탄은 9개가 있다.(폭탄의 UI를 배치)
 
 3. 폭탄은 본인이 정답인지 알고 있고, 정답을 다 맞추면 게임 오버 조건을 만들자. 지뢰를 찾으면 게임 오버
+
+#### 동작 흐름
+1. 앱 시작 → <App /> → <BombGame />
+
+2. BombGame에서 폭탄 위치(bomb)를 0~8 사이에서 무작위로 생성
+
+3. 9개의 <Bomb /> 박스 생성, 각 박스에 setValue 함수 전달. 폭탄이면 setGameOver, 아니면 setCount
+
+4. 사용자가 박스 클릭 → bombActiveHandler() 실행. isActive가 true로 변경. 이미지가 바뀜. 부모에게 this.props.setValue() 호출
+
+5. 폭탄이면 Over: true로 바뀌고 게임 종료 화면 표시. 아니면 카운트 증가

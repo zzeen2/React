@@ -15,27 +15,43 @@ export default class BombGame extends Component {
         }
     }
 
-    setCount = () => {
+    setCount = () => { // 폭탄이 아닌 칸
         this.setState({...this.state, Count : this.state.Count + 1})
     }
 
-    setGameOver = () => {
+    setGameOver = () => { // 폭탄인 칸
         this.setState({...this.state, Over : true});
     }
     
-    setBomb = () => {
+    setBomb = () => { // 폭탄 칸 생성
         const {bombCount} = this.state;
         // fill 배열안에 값을 채우는 메서드 
         return(Array(bombCount).fill(0).map((el,index) => <Bomb setValue={index ===  this.state.bomb ? this.setGameOver : this.setCount}/>))// 9개의 자리를 만들고, 0을 넣는다.
     }
-
+    restart = () => {
+        // 상태 초기화, 다시 bomb-game-wrap 보여주기
+        this.setState({
+            Over: false,
+            Count: 0,
+            bomb: Math.floor(Math.random() * 9), 
+            bombCount: 9
+        });
+    }
     
     render () {
-        if(this.state.Over) return <div><div>{this.state.Count}</div><div>게임 오버 ㅠㅠ </div></div>
-        return (
+        if(this.state.Over) {
+            return (
+            <div>
+                <div>클릭한 수: {this.state.Count}</div>
+                <div>게임 오버 ㅠㅠ</div>
+                <button onClick={this.restart}>다시하기</button>
+            </div>
+            )
+        }
+        return (<>
             <div className="bomb-game-wrap">
                 <this.setBomb/>
             </div>
-        )
+        </>)
     }
 }

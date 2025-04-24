@@ -19,8 +19,8 @@ export default class Boom extends Component {
     }
     bombActiveHandler =() => {
         if(this.state.isActive) return //한번 터진애들은 리렌더링을 막음
-        this.setState({...this.state, isActive : true})
-        this.props.setValue();
+        this.setState({...this.state, isActive : true}) // 클릭되면 isAvtive true로 바뀜 
+        this.props.setValue(); // 부모가 준 함수 실행 (카운트 증가 또는 게임 종료)
     }
     render () {
         return (<>
