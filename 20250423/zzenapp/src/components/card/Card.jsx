@@ -4,7 +4,6 @@ export default class Card extends Component {
     constructor(props) {
         super();
         console.log(props) // 빈객체 // 부모컴포넌트에서 전달하는 값
-        
         // 상태
         this.state = {
             count : 0
@@ -18,13 +17,13 @@ export default class Card extends Component {
 
     componentDidUpdate() {
         console.log("컴포넌트가 변화했어")
-        console.log("카운트가 증가되었습니다", this.state.count)
+        console.log("카운트가 증가되었습니다 (컴포넌트 업데이트)", this.state.count)
         this.reward()
     }
 
     incrementCount = () => {
         this.setState({ count : this.state.count + 1})
-        console.log("카운트가 증가되었습니다", this.state.count) // 업데이트 되기 전에 콘솔이 찍힘 
+        console.log("카운트가 증가되었습니다", this.state.count) // 업데이트 되기 전에 콘솔이 찍힘
         // this.reward(); // 여기에 작성하면 숫자 하나 밀림
     }
 
